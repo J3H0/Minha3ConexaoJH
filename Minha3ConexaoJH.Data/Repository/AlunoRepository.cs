@@ -39,6 +39,7 @@ namespace Minha3ConexaoJH.Data.Repository
         {
             var aluno = Selecionar(id);
             context.Aluno.Remove(aluno);
+            context.SaveChanges();
         }
     }
 }
