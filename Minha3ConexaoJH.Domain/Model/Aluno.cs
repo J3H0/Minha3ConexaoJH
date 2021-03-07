@@ -2,7 +2,7 @@
 
 namespace Minha3ConexaoJH.Domain
 {
-    public class Aluno
+    public class Aluno : IEntity
     {
         public int Id { get; set; }
         public string Nome { get; set; }

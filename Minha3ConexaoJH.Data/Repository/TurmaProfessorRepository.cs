@@ -1,45 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Minha3ConexaoJH.Domain;
 
 namespace Minha3ConexaoJH.Data.Repository
 {
-    public class TurmaProfessorRepository
+    public class TurmaProfessorRepository : BaseRepository<TurmaProfessor>
     {
-        private readonly Context context;
-
-        public TurmaProfessorRepository()
+        public List<TurmaProfessor> SelecionarTudoCompleto()
         {
-            context = new Context();
+            return context.TurmaProfessor
+                .Include(x => x.Professor)
+                .Include(x => x.Turma)
+                .ToList();
         }
 
-        public void Incluir(TurmaProfessor tp)
+        public override void Incluir(TurmaProfessor entity)
         {
-            context.TurmaProfessor.Add(tp);
-            context.SaveChanges();
-        }
-
-        public TurmaProfessor Selecionar(int id)
-        {
-            return context.TurmaProfessor.FirstOrDefault(x => x.Id == id);
-        }
-
-        public List<TurmaProfessor> SelecionarTudo()
-        {
-            return context.TurmaProfessor.ToList();
-        }
-
-        public void Alterar(TurmaProfessor tp)
-        {
-            context.TurmaProfessor.Update(tp);
-            context.SaveChanges();
-        }
-
-        public void Excluir(int id)
-        {
-            var tp = Selecionar(id);
-            context.TurmaProfessor.Remove(tp);
-            context.SaveChanges();
+            //regras para a inclusao
+            base.Incluir(entity);
         }
     }
 }

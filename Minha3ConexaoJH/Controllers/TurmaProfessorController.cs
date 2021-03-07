@@ -19,7 +19,7 @@ namespace Minha3ConexaoJH.Controllers
         [HttpGet]
         public IEnumerable<TurmaProfessor> Get()
         {
-            return repo.SelecionarTudo();
+            return repo.SelecionarTudoCompleto();
         }
 
         [HttpGet("{id}")]

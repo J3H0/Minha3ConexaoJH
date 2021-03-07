@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Minha3ConexaoJH.Domain
 {
-    public class Turma
+    public class Turma : IEntity
     {
         public int Id { get; set; }
         public string Nome { get; set; }
