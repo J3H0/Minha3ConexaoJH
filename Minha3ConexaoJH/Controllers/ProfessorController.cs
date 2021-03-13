@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Minha3ConexaoJH.Data.Repository;
 using Minha3ConexaoJH.Domain;
+using Minha3ConexaoJH.Data.Interface;
 
 namespace Minha3ConexaoJH.Controllers
 {
@@ -9,44 +10,44 @@ namespace Minha3ConexaoJH.Controllers
     [ApiController]
     public class ProfessorController : ControllerBase
     {
-        private readonly ProfessorRepository repo;
+        private readonly IProfessorRepository _repo;
 
-        public ProfessorController()
+        public ProfessorController(IProfessorRepository repo)
         {
-            repo = new ProfessorRepository();
+            _repo = repo;
         }
 
         [HttpGet]
         public IEnumerable<Professor> Get()
         {
-            return repo.SelecionarTudo();
+            return _repo.SelecionarTudo();
         }
 
         [HttpGet("{id}")]
         public Professor Get(int id)
         {
-            return repo.Selecionar(id);
+            return _repo.Selecionar(id);
         }
 
         [HttpPost]
         public IEnumerable<Professor> Post([FromBody] Professor prof)
         {
-            repo.Incluir(prof);
-            return repo.SelecionarTudo();
+            _repo.Incluir(prof);
+            return _repo.SelecionarTudo();
         }
 
         [HttpPut("{id}")]
         public IEnumerable<Professor> Put([FromBody] Professor prof)
         {
-            repo.Alterar(prof);
-            return repo.SelecionarTudo();
+            _repo.Alterar(prof);
+            return _repo.SelecionarTudo();
         }
 
         [HttpDelete("{id}")]
         public IEnumerable<Professor> Delete(int id)
         {
-            repo.Excluir(id);
-            return repo.SelecionarTudo();
+            _repo.Excluir(id);
+            return _repo.SelecionarTudo();
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using Minha3ConexaoJH.Data.Repository;
 using Minha3ConexaoJH.Domain;
+using Minha3ConexaoJH.Data.Interface;
+using Microsoft.Extensions.Logging;
 
 namespace Minha3ConexaoJH.Controllers
 {
@@ -9,16 +10,26 @@ namespace Minha3ConexaoJH.Controllers
     [ApiController]
     public class TurmaController : ControllerBase
     {
-        private readonly TurmaRepository repo;
+        private readonly ITurmaRepository repo;
+        private readonly ILogger _logger;
 
-        public TurmaController()
+        public TurmaController(ITurmaRepository turmaRepository, ILogger<TurmaController> logger)
         {
-            repo = new TurmaRepository();
+            repo = turmaRepository;
+            _logger = logger;
         }
 
         [HttpGet]
         public IEnumerable<Turma> Get()
         {
+            try 
+            {
+                throw new System.Exception();
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao recuperar todas as Turmas");
+            }
             return repo.SelecionarTudo();
         }
 

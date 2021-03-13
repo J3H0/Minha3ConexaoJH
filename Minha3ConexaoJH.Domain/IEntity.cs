@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Minha3ConexaoJH.Domain
+﻿namespace Minha3ConexaoJH.Domain
 {
     public interface IEntity
     {

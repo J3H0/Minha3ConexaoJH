@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Minha3ConexaoJH.Domain
+﻿namespace Minha3ConexaoJH.Domain
 {
     public class Aluno : IEntity
     {

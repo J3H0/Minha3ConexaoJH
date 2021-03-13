@@ -1,44 +1,50 @@
-﻿using Minha3ConexaoJH.Domain;
+﻿using Minha3ConexaoJH.Data.Interface;
+using Minha3ConexaoJH.Domain;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Minha3ConexaoJH.Data.Repository
 {
-    public class BaseRepository<T> where T : class, IEntity
+    public class BaseRepository<T> : IBaseRepository<T> where T : class, IEntity
     {
-        protected readonly Context context;
-        public BaseRepository()
+        protected readonly Context _context;
+        public BaseRepository(Context context)
         {
-            context = new Context();
+            _context = context;
         }
 
         public virtual void Incluir(T entity)
         {
-            context.Set<T>().Add(entity);
-            context.SaveChanges();
+            _context.Set<T>().Add(entity);
+            _context.SaveChanges();
         }
 
         public void Alterar(T entity)
         {
-            context.Set<T>().Update(entity);
-            context.SaveChanges();
+            _context.Set<T>().Update(entity);
+            _context.SaveChanges();
         }
 
         public T Selecionar(int id)
         {
-            return context.Set<T>().FirstOrDefault(x => x.Id == id);
+            return _context.Set<T>().FirstOrDefault(x => x.Id == id);
         }
 
         public List<T> SelecionarTudo()
         {
-            return context.Set<T>().ToList();
+            return _context.Set<T>().ToList();
         }
 
         public void Excluir(int id)
         {
             var entity = Selecionar(id);
-            context.Set<T>().Remove(entity);
-            context.SaveChanges();
+            _context.Set<T>().Remove(entity);
+            _context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }
